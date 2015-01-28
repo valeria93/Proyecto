@@ -10,16 +10,16 @@ int menu(){
 	clrscr();
 	int op;
    cout<<"************************************************"<<endl;
-   cout<<"************************************************"<<endl;
    cout<<"***ESCUELA SUPERIOR POLITECNICA DE CHIMBORAZO***"<<endl;
    cout<<"********TRABAJO FINAL DE PROGRAMACION I*********"<<endl;
+   cout<<"************************************************"<<endl;
    cout<<"********INTEGRANTES: SANTIAGO VACA  745*********"<<endl;
    cout<<"********           : JOEL RODRIGUES 744*********"<<endl;
    cout<<"********           : VALERIA PEREZ  748*********"<<endl;
    cout<<"************************************************"<<endl;
    cout<<"************************************************"<<endl;
-
    cout<<"            ***MENU DE OPCIONES***              "<<endl;
+
    cout<<"1. Generar tablas de verdad con dos entradas"<<endl;
    cout<<"2. Ver tablas de verdad con dos entradas"<<endl;
    cout<<"3. Generar y ver tabla con n entradas"<<endl;
@@ -44,112 +44,52 @@ void verTablas2Entradas(){
 	cout<<"VER TABLAS CON DOS ENTRADAS";
 }
 
+//******************************************************************************
+//Función que genera la tabla de verdad AND
+//******************************************************************************
+void generarAnd(int lineas,int nEntradas){
+   ofstream fs("nombre.txt");
+	//Genera el encabezado
+   for(int i=1;i<=nEntradas;i++){
+   	fs<<"X"<<i<<" ";
+	   if(i==nEntradas)
+     	fs<<"AND"<<endl;
+	}
+	//Genera la tabla de verdad AND
+   for(int i=1;i<=lineas;i++){
+   	bool and=1;
+      for(int j=nEntradas;j>=1;j--){
+	     	int divisor=pow(2,j);
+     	   int digito;
+        	digito=(i%divisor);
+
+	      if(digito<=(divisor/2)){
+            if(digito==0)
+     	      	digito=1;
+        	   else
+        			digito=0;
+	      }
+         else
+     	   	digito=1;
+
+	      if(digito==0)
+         	and=0;
+     	   fs<<digito<<"  ";
+	   }
+      fs<<and<<endl;
+   }
+   fs.close();
+}
+
 
 //******************************************************************************
-//Función que genera y permite ver tablas de verdad con n entradas
+//Función que genera tablas de verdad con n entradas
 //******************************************************************************
 void generarTablasNEntradas(int nEntradas,int op){
    char cadena[128];
    int lineas = pow(2,nEntradas);
-   ofstream fs("nombre.txt");
+
 
    if(op==1){
-//Genera el encabezado
-   for(int i=1;i<=nEntradas;i++){
-   	fs<<"X"<<i<<" ";
-      if(i==nEntradas)
-      	fs<<"AND"<<endl;
+	   generarAnd(lineas,nEntradas);
    }
-//Genera la tabla de verdad AND
-   for(int i=1;i<=lineas;i++){
-   	bool and=1;
-      for(int j=nEntradas;j>=1;j--){
-      	int divisor=pow(2,j);
-         int digito;
-         digito=(i%divisor);
-
-         if(digito<=(divisor/2)){
-            if(digito==0)
-            	digito=1;
-            else
-         		digito=0;
-         }
-         else
-         	digito=1;
-
-         if(digito==0)
-         	and=0;
-         fs<<digito<<"  ";
-      }
-      fs<<and<<endl;
-   }
-
-   fs.close();
-   }
-   ifstream fe("nombre.txt");
-
-   while(!fe.eof()) {
-      fe.getline(cadena, 128);
-      cout << cadena << endl;
-   }
-   fe.close();
-}
-
-void verGenerarTablasNEntradas(){
-   clrscr();
-   cout<<"VER Y GENERAR TABLAS CON N ENTRADAS: "<<endl;
-   int entradas;
-   int op;
-   do{
-   	cout<<"Seleccione la tabla de verdad que desea generar y ver: "<<endl;
-      cout<<"1. AND"<<endl;
-      cout<<"2. OR"<<endl;
-      cout<<"3. NOT"<<endl;
-      cout<<"4. XOR"<<endl;
-      cout<<"5. NOR"<<endl;
-      cout<<"6. NAND"<<endl;
-      cout<<"7. X-NOR"<<endl;
-   	cout<<"   Opcion: ";cin>>op;
-   }while((op>7)||(op<1));
-
-   do{
-		cout<<"Ingrese cuantas entradas desea: ";cin>>entradas;
-   }while ((entradas<2)||(entradas>6));
-
-   generarTablasNEntradas(entradas,op);
-}
-
-//******************************************************************************
-//Función que realiza una acción según un valor ingresado
-//******************************************************************************
-void realizarAccion(int op){
-	switch(op){
-   	case 1:
-      	generarTablas2Entradas();
-         getch();
-         break;
-
-      case 2:
-      	verTablas2Entradas();
-         getch();
-         break;
-
-      case 3:
-      	verGenerarTablasNEntradas();
-         getch();
-         break;
-   }
-}
-
-//******************************************************************************
-//Función principal
-//******************************************************************************
-void main(){
-   int opcion=0;
-	while (opcion!=4){
-		opcion=menu();
-   	realizarAccion(opcion);
-   }
-}
-   
-  
