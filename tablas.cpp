@@ -1,12 +1,12 @@
-//Genera el encabezado
-//Función que genera tablas de verdad con 2 entradas
+   generarAnd(4,2);
+   generarOr(4,2);
+   generarNot();
+   generarXor(4,2);
+   generarNor(4,2);
+   generarNand(4,2);
+   generarXnor(4,2);
+   char dir[50];
 
-void generarTablas2Entradas(){
-	clrscr();
-
-   ofstream fe("nombre.txt");
-   char cadena[128];
-
-   //Genera el encabezado
-   fe<<"2ENTRADAS"<<endl;
-   fe.close();
+	int tamano;
+   GetModuleFileName( NULL, dir, 50 );
+   tamano=strlen(dir);
