@@ -1,4 +1,13 @@
- //Función que muestra el menú
+#include <iostream>
+#include <conio>
+#include <math>
+#include <fstream>
+#include <windows>
+#include <stdio>
+#include <string>
+
+//******************************************************************************
+//Función que muestra el menú
 //******************************************************************************
 int menu(){
 	clrscr();
@@ -580,3 +589,4 @@ void main(){
    	realizarAccion(opcion);
    }
 }
+     
